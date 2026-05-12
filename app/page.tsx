@@ -28,8 +28,15 @@ export default function Home() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-blue-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-            La pista de hielo
+          <div className="flex items-center">
+            <Image
+              src="/LOGO-PISTA-DE-HIELO.jpg"
+              alt="Logo Pista de Hielo"
+              width={160}
+              height={48}
+              className="object-contain"
+              priority
+            />
           </div>
           
           {/* Desktop Menu */}
@@ -188,10 +195,9 @@ export default function Home() {
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-3">Eventos Corporativos y Cumpleaños</h3>
                 <p className="text-foreground/70 mb-6">
-                  Celebrá momentos especiales en un lugar único. Paquetes personalizados que incluyen catering, decoración y actividades.
+                  Celebrá momentos especiales en un lugar único. Paquetes personalizados que incluyen decoración y actividades.
                 </p>
                 <ul className="text-sm space-y-2 text-foreground/60">
-                  <li>✓ Catering incluido</li>
                   <li>✓ Grupos privados</li>
                   <li>✓ Paquetes personalizados</li>
                 </ul>
@@ -228,7 +234,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">¿Dónde nos encuentras?</h2>
-            <p className="text-xl text-foreground/70">En la zona de María Pérez, a 2.100 metros sobre el nivel del mar</p>
+            <p className="text-xl text-foreground/70">En la zona de Maripérez, a 2.100 metros sobre el nivel del mar</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -240,7 +246,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg">Ubicación</h3>
-                    <p className="text-foreground/70">María Pérez, Caracas, Venezuela</p>
+                    <p className="text-foreground/70">Maripérez, Caracas, Venezuela</p>
                   </div>
                 </div>
 
@@ -409,7 +415,7 @@ export default function Home() {
               <ul className="space-y-2 text-white/70">
                 <li>📱 0424-1513938</li>
                 <li>✉️ lapistadehielowaraira@gmail.com</li>
-                <li>📍 María Pérez, Caracas</li>
+                <li>📍 Maripérez, Caracas</li>
               </ul>
             </div>
             <div>
