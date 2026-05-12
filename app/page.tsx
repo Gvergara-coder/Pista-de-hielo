@@ -1,12 +1,27 @@
 'use client';
 
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Menu, X, MapPin, Phone, Mail, Instagram } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X, MapPin, Phone, Mail, Instagram, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+const heroImages = ['/pista-portada.jpg', '/patinaje-artistico-2.jpg'];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  const prevHeroImage = () => setHeroIndex((current) => (current - 1 + heroImages.length) % heroImages.length);
+  const nextHeroImage = () => setHeroIndex((current) => (current + 1) % heroImages.length);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setHeroIndex((current) => (current + 1) % heroImages.length);
+    }, 300000); // 5 minutos
+
+    return () => clearTimeout(timeout);
+  }, [heroIndex]);
 
   return (
     <div className="bg-gradient-to-br from-blue-50 via-white to-blue-50 text-foreground">
@@ -20,7 +35,6 @@ export default function Home() {
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 items-center">
             <a href="#servicios" className="text-foreground hover:text-primary font-medium transition">Servicios</a>
-            <a href="#tarifas" className="text-foreground hover:text-primary font-medium transition">Tarifas</a>
             <a href="#ubicacion" className="text-foreground hover:text-primary font-medium transition">Ubicación</a>
             <a href="#faq" className="text-foreground hover:text-primary font-medium transition">FAQ</a>
             <Button className="bg-primary hover:bg-blue-700 text-white">Reserva tu sesión</Button>
@@ -37,7 +51,6 @@ export default function Home() {
           <div className="md:hidden bg-white border-t border-blue-100 py-4">
             <div className="flex flex-col gap-4 px-4">
               <a href="#servicios" className="text-foreground hover:text-primary font-medium">Servicios</a>
-              <a href="#tarifas" className="text-foreground hover:text-primary font-medium">Tarifas</a>
               <a href="#ubicacion" className="text-foreground hover:text-primary font-medium">Ubicación</a>
               <a href="#faq" className="text-foreground hover:text-primary font-medium">FAQ</a>
               <Button className="bg-primary hover:bg-blue-700 text-white w-full">Reserva tu sesión</Button>
@@ -48,7 +61,31 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <Image
+          src={heroImages[heroIndex]}
+          alt="Pista de hielo"
+          fill
+          className="absolute inset-0 object-cover transition-opacity duration-1000"
+          priority
+        />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-transparent to-blue-50 opacity-60"></div>
+
+        <button
+          type="button"
+          onClick={prevHeroImage}
+          aria-label="Imagen anterior"
+          className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-3 text-blue-900 shadow-lg transition hover:bg-white"
+        >
+          <ChevronLeft size={28} />
+        </button>
+        <button
+          type="button"
+          onClick={nextHeroImage}
+          aria-label="Siguiente imagen"
+          className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-3 text-blue-900 shadow-lg transition hover:bg-white"
+        >
+          <ChevronRight size={28} />
+        </button>
         
         {/* Animated ice effect background */}
         <div className="absolute inset-0 opacity-30">
@@ -61,7 +98,7 @@ export default function Home() {
             <span className="bg-blue-100 text-primary px-4 py-2 rounded-full font-semibold">🧊 Bienvenido al frío</span>
           </div>
           
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 text-balance">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 text-balance" style={{ color: 'white' }}>
             Disfruta de la pista de hielo más alta del mundo
           </h1>
           
@@ -91,8 +128,14 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {/* Service 1 */}
             <Card className="bg-white hover:shadow-2xl transition border-0 overflow-hidden">
-              <div className="bg-gradient-to-br from-blue-400 to-blue-600 h-40 flex items-center justify-center">
-                <span className="text-6xl">⛸️</span>
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  src="/patinaje-artistico.jpg"
+                  alt="Clases de patinaje artístico"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-3">Clases de Patinaje Artístico</h3>
@@ -109,8 +152,14 @@ export default function Home() {
 
             {/* Service 2 */}
             <Card className="bg-white hover:shadow-2xl transition border-0 overflow-hidden">
-              <div className="bg-gradient-to-br from-blue-500 to-blue-700 h-40 flex items-center justify-center">
-                <span className="text-6xl">🎉</span>
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  src="/patines.jpg"
+                  alt="Sesiones Libres"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-3">Sesiones Libres</h3>
@@ -127,8 +176,14 @@ export default function Home() {
 
             {/* Service 3 */}
             <Card className="bg-white hover:shadow-2xl transition border-0 overflow-hidden">
-              <div className="bg-gradient-to-br from-blue-600 to-blue-800 h-40 flex items-center justify-center">
-                <span className="text-6xl">🎂</span>
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  src="/eventos.png"
+                  alt="Eventos corporativos"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-3">Eventos Corporativos y Cumpleaños</h3>
@@ -150,78 +205,17 @@ export default function Home() {
       <section id="tarifas" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">Tarifas y Horarios</h2>
-            <p className="text-xl text-foreground/70">Precios accesibles para disfrutar del mejor hielo de Caracas</p>
-          </div>
-
-          <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-primary to-blue-700 text-white">
-                <tr>
-                  <th className="px-6 py-4 text-left font-bold">Servicio</th>
-                  <th className="px-6 py-4 text-left font-bold">Duración</th>
-                  <th className="px-6 py-4 text-left font-bold">Precio (Bs.)</th>
-                  <th className="px-6 py-4 text-left font-bold">Precio (USD)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                <tr className="hover:bg-blue-50 transition">
-                  <td className="px-6 py-4 font-semibold">Sesión Libre</td>
-                  <td className="px-6 py-4">1 hora</td>
-                  <td className="px-6 py-4">250 Bs.</td>
-                  <td className="px-6 py-4">$6</td>
-                </tr>
-                <tr className="hover:bg-blue-50 transition">
-                  <td className="px-6 py-4 font-semibold">Sesión Libre</td>
-                  <td className="px-6 py-4">2 horas</td>
-                  <td className="px-6 py-4">450 Bs.</td>
-                  <td className="px-6 py-4">$10</td>
-                </tr>
-                <tr className="hover:bg-blue-50 transition">
-                  <td className="px-6 py-4 font-semibold">Clase de Patinaje</td>
-                  <td className="px-6 py-4">45 minutos</td>
-                  <td className="px-6 py-4">300 Bs.</td>
-                  <td className="px-6 py-4">$8</td>
-                </tr>
-                <tr className="hover:bg-blue-50 transition">
-                  <td className="px-6 py-4 font-semibold">Clase de Patinaje (Pack 4)</td>
-                  <td className="px-6 py-4">4 clases</td>
-                  <td className="px-6 py-4">1.000 Bs.</td>
-                  <td className="px-6 py-4">$25</td>
-                </tr>
-                <tr className="hover:bg-blue-50 transition">
-                  <td className="px-6 py-4 font-semibold">Alquiler de Patines</td>
-                  <td className="px-6 py-4">Por sesión</td>
-                  <td className="px-6 py-4">50 Bs.</td>
-                  <td className="px-6 py-4">$1.50</td>
-                </tr>
-                <tr className="bg-primary/10 hover:bg-primary/20 transition">
-                  <td className="px-6 py-4 font-bold">Evento Corporativo/Cumpleaños</td>
-                  <td className="px-6 py-4">2 horas</td>
-                  <td className="px-6 py-4">Desde 3.500 Bs.</td>
-                  <td className="px-6 py-4">Desde $85</td>
-                </tr>
-              </tbody>
-            </table>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">Horarios</h2>
+            <p className="text-xl text-foreground/70">Horarios de funcionamiento de la pista</p>
           </div>
 
           <div className="mt-12 bg-white rounded-lg shadow-lg p-8">
             <h3 className="text-2xl font-bold mb-6">Horarios</h3>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-1 gap-8">
               <div>
-                <h4 className="font-bold text-lg mb-4 text-primary">Entre Semana (Lun-Vie)</h4>
+                <h4 className="font-bold text-lg mb-4 text-primary">Miércoles a Domingo</h4>
                 <ul className="space-y-2 text-foreground/80">
-                  <li>10:00 AM - 12:00 PM</li>
-                  <li>2:00 PM - 5:00 PM</li>
-                  <li>6:00 PM - 9:00 PM</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold text-lg mb-4 text-primary">Fines de Semana (Sáb-Dom)</h4>
-                <ul className="space-y-2 text-foreground/80">
-                  <li>10:00 AM - 1:00 PM</li>
-                  <li>3:00 PM - 6:00 PM</li>
-                  <li>7:00 PM - 10:00 PM</li>
+                  <li>1:00 PM - 8:00 PM</li>
                 </ul>
               </div>
             </div>
